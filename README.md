@@ -3,7 +3,7 @@
 A dead simple distributed job queue written in go.
 
 
-# Arhitecture
+# Architecture
 
 ![Drago](public/drago.png)
 
