@@ -11,9 +11,18 @@ func JobApiServer(port int) *http.ServeMux {
 		w.Write([]byte(fmt.Sprintf("drago server running on port : %d", port)))
 
 	}))
-	s.Handle("GET /job/id")
-	s.Handle("GET /job/status/")
-	s.Handle("POST /job")
+	// get job by ID
+	s.Handle("GET /job/id", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
+	}))
+	// get jobs by status
+	s.Handle("GET /job/status/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+
+	}))
+	s.Handle("POST /job", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+
+	}))
+	s.Handle("DELETE /job/status", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {}))
+	s.Handle("DELETE /job/id", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {}))
 	return &s
 }
