@@ -2,7 +2,7 @@ package api
 
 import "github.com/google/uuid"
 
-// job store represents the DB/store where jobs will be stored
+// job store interface
 
 type JobStore interface {
 	saveJob(*Job) error
