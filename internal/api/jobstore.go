@@ -9,4 +9,6 @@ type JobStore interface {
 	getJob() (*Job, error)
 	deleteJob(id uuid.UUID) error
 	getJobsByTypeAndStatus(type_ string, status_ string) error
+	deleteJobsByStatus(string) error
+	deleteJobsByStatusAndType(type_, status_ string) error
 }
