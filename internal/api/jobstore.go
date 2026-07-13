@@ -27,6 +27,7 @@ func (pgs *PgJobStore) Connect() error {
 	if conn_url == "" {
 		return errors.New("connection url is empty: can't connect to datastore")
 	}
+
 	return nil
 
 }
