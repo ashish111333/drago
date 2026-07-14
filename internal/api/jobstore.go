@@ -6,6 +6,7 @@ import (
 	"os"
 
 	"github.com/google/uuid"
+	ppool "github.com/jackc/pgx/v5/pgxpool"
 )
 
 // job store interface
@@ -17,18 +18,28 @@ type JobStore interface {
 	GetJobsByTypeAndStatus(ctx context.Context, type_ string, status_ string) error
 	DeleteJobsByStatus(context.Context, string) error
 	DeleteJobsByStatusAndType(ctx context.Context, type_, status_ string) error
+	// close all resources
+	Close() error
 }
 
-type PgJobStore struct{}
+type PgJobStore struct {
+	pool *ppool.Pool
+}
 
-func (pgs *PgJobStore) Connect() error {
+func (pgs *PgJobStore) Connect() (*ppool.Pool, error) {
 
 	conn_url := os.Getenv("PG_CONN_URL")
 	if conn_url == "" {
-		return errors.New("connection url is empty: can't connect to datastore")
+		return nil, errors.New("connection url is empty: can't connect to datastore")
 	}
 
-	return nil
+	pgxPool, err := ppool.New(context.Background(), conn_url)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return pgxPool, nil
 
 }
 
@@ -44,3 +55,6 @@ func (pgs *PgJobStore) DeleteJob() {
 func (pgs *PgJobStore) GetJobsByTypeAndStatus()    {}
 func (pgs *PgJobStore) DeleteJobsByStatusAndType() {}
 func (pgs *PgJobStore) DeleteJobsByStatus()        {}
+func (pgs *PgJobStore) Close() {
+
+}
