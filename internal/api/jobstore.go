@@ -45,6 +45,7 @@ func (pgs *PgJobStore) Connect() (*ppool.Pool, error) {
 
 func (pgs *PgJobStore) SaveJob(ctx context.Context, j *Job) {
 
+	pgs.pool.Query(ctx, "")
 }
 func (pgs *PgJobStore) GetJob(ctx context.Context, id uuid.UUID) (*Job, error) {
 

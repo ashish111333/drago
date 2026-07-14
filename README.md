@@ -1,6 +1,6 @@
 # Drago
 
-A dead simple distributed job queue written in go.
+A dead simple distributed job processor written in go.
 
 
 # Architecture
