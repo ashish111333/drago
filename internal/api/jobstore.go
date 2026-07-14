@@ -18,7 +18,7 @@ type JobStore interface {
 	GetJobsByTypeAndStatus(ctx context.Context, type_ string, status_ string) error
 	DeleteJobsByStatus(context.Context, string) error
 	DeleteJobsByStatusAndType(ctx context.Context, type_, status_ string) error
-	// close all resources
+	// close/free all resources
 	Close() error
 }
 
@@ -43,12 +43,14 @@ func (pgs *PgJobStore) Connect() (*ppool.Pool, error) {
 
 }
 
-func (pgs *PgJobStore) SaveJob() {
+func (pgs *PgJobStore) SaveJob(ctx context.Context, j *Job) {
 
 }
-func (pgs *PgJobStore) GetJob() {}
+func (pgs *PgJobStore) GetJob(ctx context.Context, id uuid.UUID) (*Job, error) {
 
-func (pgs *PgJobStore) DeleteJob() {
+}
+
+func (pgs *PgJobStore) DeleteJob(ctx context.Context) {
 
 }
 
