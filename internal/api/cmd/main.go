@@ -1,6 +1,6 @@
 package cmd
 
-// Start drago api server setup data store
+// Start drago api server
 func main() {
 
 }

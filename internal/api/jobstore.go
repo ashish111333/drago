@@ -38,6 +38,10 @@ func (pgs *PgJobStore) Connect() (*ppool.Pool, error) {
 	if err != nil {
 		return nil, err
 	}
+	err = pgs.Setup()
+	if err != nil {
+		return pgxPool, err
+	}
 
 	return pgxPool, nil
 
@@ -45,7 +49,6 @@ func (pgs *PgJobStore) Connect() (*ppool.Pool, error) {
 
 func (pgs *PgJobStore) SaveJob(ctx context.Context, j *Job) {
 
-	pgs.pool.Query(ctx, "")
 }
 func (pgs *PgJobStore) GetJob(ctx context.Context, id uuid.UUID) (*Job, error) {
 
@@ -59,5 +62,22 @@ func (pgs *PgJobStore) GetJobsByTypeAndStatus()    {}
 func (pgs *PgJobStore) DeleteJobsByStatusAndType() {}
 func (pgs *PgJobStore) DeleteJobsByStatus()        {}
 func (pgs *PgJobStore) Close() {
+
+}
+func (pgs *PgJobStore) Setup() error {
+	_, err := pgs.pool.Exec(context.Background(), `CREATE IF NOT EXISTS jobs (
+		ID TEXT,
+		JobName TEXT,
+		JobType TEXT,
+		Status TEXT,
+		CreatedAt TIMESTAMPZ DEFAULT NOW(),
+		FinishedAT TIMESTAMPZ,
+		Payload JSONB,
+	);`)
+	if err != nil {
+		return errors.New("failed to setup postgres datastore")
+
+	}
+	return nil
 
 }
