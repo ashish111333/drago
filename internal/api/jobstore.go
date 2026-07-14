@@ -66,7 +66,7 @@ func (pgs *PgJobStore) Close() {
 }
 func (pgs *PgJobStore) Setup() error {
 	_, err := pgs.pool.Exec(context.Background(), `CREATE IF NOT EXISTS jobs (
-		ID TEXT,
+		Id TEXT,
 		JobName TEXT,
 		JobType TEXT,
 		Status TEXT,
